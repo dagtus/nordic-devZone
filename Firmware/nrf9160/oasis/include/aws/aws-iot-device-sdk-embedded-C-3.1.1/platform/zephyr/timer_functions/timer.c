@@ -111,8 +111,8 @@ uint32_t left_ms(Timer *timer)
 
 void init_timer(Timer *timer)
 {
-	//Both options was used, we do need expiry_dummy_fn & stop_dummy_fn, just added
-	// to follow the docummentation.
+	/*Both options was tested, we do not need expiry_dummy_fn & stop_dummy_fn, just added
+	to follow the docummentation.*/
 	k_timer_init(&timer->end_time, expiry_dummy_fn, stop_dummy_fn);
 	//k_timer_init(&timer->end_time, NULL, NULL);
 }
