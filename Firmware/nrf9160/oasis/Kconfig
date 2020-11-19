@@ -1,0 +1,101 @@
+#
+# Copyright (c) 2018 Nordic Semiconductor ASA
+#
+# SPDX-License-Identifier: LicenseRef-BSD-5-Clause-Nordic
+#
+
+menu "Oasis Project"
+
+config APP_VERSION
+	string "Application version"
+	default "v0.0d0.1"
+
+config MULTITHREADING
+    bool "Multi-threading"
+    default y
+    help
+      If disabled, only the main thread is available, so a main() function
+      must be provided. Interrupts are available. Kernel objects will most
+      probably not behave as expected, especially with regards to pending,
+      since the main thread cannot pend, it being the only thread in the
+      system.
+
+      Many drivers and subsystems will not work with this option
+      set to 'n'; disable only when you REALLY know what you are
+      doing.
+
+
+config NUM_PREEMPT_PRIORITIES
+    int "Number of preemptible priorities" if MULTITHREADING
+    range 0 128
+    default 0 if !MULTITHREADING
+    default 15
+    help
+      Number of preemptible priorities available in the system. Gives access
+      to priorities 0 to CONFIG_NUM_PREEMPT_PRIORITIES - 1.
+
+      This can be set to 0 to disable preemptible scheduling.
+
+      Each priority requires an extra 8 bytes of RAM. Each set of 32 extra
+      total priorities require an extra 4 bytes and add one possible
+      iteration to loops that search for the next thread to run.
+
+      The total number of priorities is
+
+       NUM_COOP_PRIORITIES + NUM_PREEMPT_PRIORITIES + 1
+
+      The extra one is for the idle thread, which must run at the lowest
+      priority, and be the only thread at that priority.
+
+config MQTT_PUB_TOPIC
+	string "MQTT publish topic"
+	default "/$aws/rules/testAnalytics"
+
+config MQTT_SUB_TOPIC
+	string "MQTT subscribe topic"
+	default "/$aws/rules/testAnalytics"
+
+config MQTT_CLIENT_ID
+	string "Client ID"
+	default "nrf9160"
+
+config MQTT_BROKER_HOSTNAME
+	string "AWS IoT MQTT broker hostname"
+	default "af4rg4q0btyhf-ats.iot.us-east-2.amazonaws.com"
+
+config MQTT_BROKER_PORT
+	int "AWS IoT MQTT broker port"
+	default 8883
+
+config MQTT_MESSAGE_BUFFER_SIZE
+	int "MQTT message buffer size"
+	default 256
+
+config MQTT_PAYLOAD_BUFFER_SIZE
+	int "MQTT payload buffer size"
+	default 256
+
+config CLOUD_CERT_SEC_TAG
+	int "Security tag for TLS credentials"
+	default 12345678
+
+config PROVISION_CERTIFICATES
+	bool "Provision certificates from the certificates.h file"
+	select MODEM_KEY_MGMT
+	default y
+	help
+	  If enabled, the sample provisions server certificates into
+	  the modem by storing the certificates defined in the
+	  certificates.h file in the modem under the given security tag.
+	  Use this option only once to provision the device.
+	  The certificates are stored in the application binary and are
+	  therefore shown in the modem trace information. This is a
+	  security risk. After provisioning the certificates, turn off
+	  this option and compile and program the sample again.
+	  Also, do not share the binary that includes the compiled
+
+endmenu
+
+menu "Zephyr Kernel"
+source "$ZEPHYR_BASE/Kconfig.zephyr"
+endmenu
