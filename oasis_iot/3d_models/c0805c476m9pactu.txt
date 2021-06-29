@@ -1,0 +1,13 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"10-17072017-090305";"";
+"REFERENCE";"C0805C476M9PACTU";"";
+"TraceParts.PartTitle";"Capacitor 0805 47uF 6.3V";"";
+"TraceParts.InstanceId";"10-17072017-090305B3UP8BA9T2ZONBDS4EZ6XORBN";"";
+"TraceParts.PartVersion";"1.0.2";"";
+"TraceParts.PartStatus";"Published";"";
+"TraceParts.PartStatusId";"";"";
+"SUPPLIER";"KEMET";"";
+"DESIGN";"Capacitor 0805 47uF 6.3V";"";
+"TRACEPARTS";"TRACEPARTS";"";
+"TraceParts.PartLanguage";"en";"";
+"TraceParts.ClassPath";"KEMET:10-17072017-090305";"";
